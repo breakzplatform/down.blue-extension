@@ -1,0 +1,19 @@
+{
+  "extName": { "message": "down.blue" },
+  "extDescription": { "message": "Download Bluesky videos and GIFs with down.blue, from the toolbar, the right-click menu, and a button on every video post." },
+  "actionTitle": { "message": "down.blue" },
+  "menuTitle": { "message": "Download with down.blue" },
+  "buttonTitle": { "message": "Download with down.blue" },
+  
+  "optThemeBtn": { "message": "Theme:" },
+  "optSupportedSites": { "message": "Supported sites" },
+  "optSupportedNote": { "message": "(social-app forks only)" },
+  "optYourSites": { "message": "Your sites" },
+  "optAddSite": { "message": "Add site" },
+  "optRemove": { "message": "Remove" },
+  "optInvalidDomain": { "message": "Invalid domain." },
+  "optDomainExists": { "message": "Domain already added." },
+  "optPermissionDenied": { "message": "Permission denied." },
+  "optFooterAllPosts": { "message": "Show the button on every post, not only on posts with a video" },
+  "optPrivacyNote": { "message": "Permissions requested: Context menus to add right-click options. Active tab to read the post URL when you click the extension. Storage for your settings. Scripting to add the button to the social sites. Nothing is collected." }
+}

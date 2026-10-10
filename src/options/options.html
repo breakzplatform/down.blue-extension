@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title data-i18n="extName"></title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1 data-i18n="extName"></h1>
+      <p data-i18n="extDescription"></p>
+      <button id="theme-btn" type="button"></button>
+    </header>
+
+    <section>
+      <h2 data-i18n="optSupportedSites"></h2>
+      <p data-i18n="optSupportedNote"></p>
+      <ul id="builtin-list"></ul>
+    </section>
+
+    <section>
+      <h2 data-i18n="optYourSites"></h2>
+      <ul id="custom-list"></ul>
+      <form id="add-site-form">
+        <input type="text" id="site-input" placeholder="example.social">
+        <button type="submit" data-i18n="optAddSite"></button>
+      </form>
+      <div id="site-error" role="status" aria-live="polite"></div>
+    </section>
+
+    <section>
+      <label class="checkbox-label">
+        <input type="checkbox" id="footer-all-posts">
+        <span data-i18n="optFooterAllPosts"></span>
+      </label>
+    </section>
+
+    <footer>
+      <p data-i18n="optPrivacyNote"></p>
+    </footer>
+  </main>
+  <script src="../lib/shared.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

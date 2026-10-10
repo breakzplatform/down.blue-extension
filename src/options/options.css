@@ -1,0 +1,118 @@
+:root {
+  --surface-page: #F4F1EA;
+  --surface-card: #FBF9F4;
+  --text: #111;
+  --border: #111;
+  --link: #0000EE;
+  --ink-down: #018281;
+  --on-down: #FFFFFF;
+  --status-error: #9E1200;
+  
+  --font-body: "CMU Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "CMU Typewriter Text", ui-monospace, Menlo, monospace;
+}
+
+[data-theme="dark"] {
+  --surface-page: #15130F;
+  --surface-card: #1F1C17;
+  --text: #F1ECE0;
+  --border: #F1ECE0;
+  --link: #8FB0FF;
+  --ink-down: #0E7471;
+  --on-down: #FFFFFF;
+  --status-error: #FF7F6B;
+}
+
+[data-theme="terminal"] {
+  --surface-page: #000000;
+  --surface-card: #000000;
+  --text: #FFB000;
+  --border: #FFB000;
+  --link: #FFD54A;
+  --ink-down: #FFB000;
+  --on-down: #000000;
+  --status-error: #FF6A00;
+}
+
+body {
+  background: var(--surface-page);
+  color: var(--text);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 24px;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  font-family: var(--font-mono);
+}
+
+button {
+  background: var(--surface-page);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--border);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: bold;
+}
+
+button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border);
+}
+
+input[type="text"] {
+  background: var(--surface-card);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 0;
+  padding: 8px;
+  font-family: var(--font-mono);
+}
+
+input:focus, button:focus {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: var(--surface-card);
+  border: 2px solid var(--border);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+#site-error {
+  color: var(--status-error);
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+footer {
+  margin-top: 32px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}

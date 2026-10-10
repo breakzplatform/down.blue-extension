@@ -1,0 +1,71 @@
+/* Shared button reset for custom buttons */
+.db-position-relative {
+  position: relative !important;
+}
+
+/* Footer Button */
+.db-footer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 50%;
+  color: var(--db-footer-color, currentColor);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.db-footer-btn:hover {
+  background-color: rgba(1, 130, 129, 0.1);
+  color: #018281;
+}
+
+/* Player Button (Neobrutalist) */
+.db-player-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  background: #F4F1EA;
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.1s, box-shadow 0.1s;
+}
+
+/* Show on wrapper hover or focus within */
+[aria-label="Embedded video player"]:hover .db-player-btn,
+[aria-label="Embedded video player"]:focus-within .db-player-btn,
+figure:hover .db-player-btn,
+figure:focus-within .db-player-btn,
+.db-position-relative:hover .db-player-btn,
+.db-position-relative:focus-within .db-player-btn {
+  opacity: 1;
+}
+
+/* Always show if no hover capability */
+@media (hover: none) {
+  .db-player-btn {
+    opacity: 1;
+  }
+}
+
+.db-player-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 #111;
+}

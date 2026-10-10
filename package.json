@@ -1,0 +1,9 @@
+{
+  "name": "down.blue-extension",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "npx web-ext lint -s dist/firefox",
+    "test": "node --test test/"
+  }
+}

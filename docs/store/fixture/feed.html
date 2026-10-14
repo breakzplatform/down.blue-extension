@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Store screenshot fixture</title>
+  <!--
+    Static stand-in for a Bluesky social-app feed, used only to render store
+    screenshots (see scripts/screenshots.mjs). It reproduces the attributes
+    the content script relies on (docs/selectors.md); everything else is
+    generic. No third-party content is loaded.
+  -->
+  <style>
+    :root {
+      --page: #F4F1EA;
+      --ink: #111;
+      --teal: #018281;
+      --app-bg: #fff;
+      --app-text: #0b0f14;
+      --app-muted: #6b7682;
+      --app-line: #e3e8ee;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--page);
+      color: var(--ink);
+      font-family: "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+      overflow: hidden;
+    }
+    .caption {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+    }
+    .caption h1 {
+      margin: 0;
+      font-family: "DejaVu Serif", Georgia, serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .caption h1 em { font-style: normal; color: var(--teal); }
+    .badge {
+      font-family: "DejaVu Sans Mono", ui-monospace, monospace;
+      font-size: 18px;
+      padding: 10px 16px;
+      border: 2px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      background: #fff;
+    }
+    .window {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      top: 120px;
+      bottom: 0;
+      background: var(--app-bg);
+      border: 2px solid var(--ink);
+      border-bottom: none;
+      box-shadow: 8px 0 0 var(--ink);
+      overflow: hidden;
+    }
+    .chrome-bar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--app-line);
+      background: #f7f8fa;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; background: #d5d9de; }
+    .address {
+      margin-left: 16px;
+      flex: 1;
+      height: 28px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid var(--app-line);
+      font-size: 14px;
+      color: var(--app-muted);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+    }
+    .ext-icon {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+    }
+    .ext-icon img { width: 20px; height: 20px; }
+    .app {
+      display: grid;
+      grid-template-columns: 220px 600px 1fr;
+      height: calc(100% - 44px);
+      color: var(--app-text);
+    }
+    nav { padding: 24px 20px; border-right: 1px solid var(--app-line); }
+    nav .item { display: flex; align-items: center; gap: 12px; padding: 10px 8px; font-size: 18px; }
+    nav .item b { font-weight: 600; }
+    nav .ico { width: 24px; height: 24px; border-radius: 6px; background: #dfe5ec; }
+    nav .item.active .ico { background: var(--app-text); }
+    main.feed { border-right: 1px solid var(--app-line); overflow: hidden; }
+    .feed-head {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-weight: 700;
+      font-size: 18px;
+      border-bottom: 1px solid var(--app-line);
+    }
+    .post {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 10px;
+      padding: 14px 16px 6px;
+      border-bottom: 1px solid var(--app-line);
+    }
+    .avatar { width: 46px; height: 46px; border-radius: 50%; }
+    .meta { font-size: 15px; margin-bottom: 2px; }
+    .meta b { font-weight: 700; }
+    .meta span, .meta a { color: var(--app-muted); text-decoration: none; }
+    .text { font-size: 15px; line-height: 1.4; margin: 2px 0 10px; }
+    .player {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--app-line);
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .player figure { margin: 0; height: 100%; }
+    .player video { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .player .play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 64px;
+      height: 64px;
+      margin: -32px 0 0 -32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+    }
+    .player .play::after {
+      content: "";
+      position: absolute;
+      left: 26px;
+      top: 20px;
+      border-left: 18px solid #fff;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+    }
+    .player .time {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      font-size: 12px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2px 6px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 6px 0 4px -6px;
+    }
+    .actions > div { flex: 0 0 auto; margin-right: 52px; }
+    .actions > div:last-child { margin-right: 0; }
+    .actions button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 0;
+      padding: 7px;
+      min-width: 34px;
+      min-height: 34px;
+      color: var(--app-muted);
+      font-size: 14px;
+      font-family: inherit;
+    }
+    aside { padding: 24px; }
+    .search { height: 40px; border-radius: 20px; background: #eef1f4; margin-bottom: 20px; }
+    .trend { height: 14px; border-radius: 7px; background: #eef1f4; margin: 14px 0; }
+    .trend.short { width: 60%; }
+
+    /* Simulated browser context menu (scene "menu"). */
+    .ctx {
+      position: absolute;
+      width: 300px;
+      padding: 6px 0;
+      background: #fff;
+      border: 1px solid #c9ced4;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      font-size: 14px;
+      color: #1f2328;
+      z-index: 50;
+    }
+    .ctx div { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 14px; }
+    .ctx hr { border: 0; border-top: 1px solid #e3e6ea; margin: 6px 0; }
+    .ctx .muted { color: #8a9099; }
+    .ctx .hl { background: #e6f3f3; color: #0b4f4e; font-weight: 600; }
+    .ctx img { width: 16px; height: 16px; }
+    .ctx .sp { width: 16px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="caption">
+    <h1 id="caption"></h1>
+    <div class="badge">down.blue</div>
+  </header>
+
+  <div class="window">
+    <div class="chrome-bar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <div class="address">social.example/profile/alice.example</div>
+      <div class="ext-icon"><img src="/src/icons/icon-48.png" alt=""></div>
+    </div>
+
+    <div class="app">
+      <nav>
+        <div class="item active"><span class="ico"></span><b data-text="home"></b></div>
+        <div class="item"><span class="ico"></span><span data-text="explore"></span></div>
+        <div class="item"><span class="ico"></span><span data-text="notifications"></span></div>
+        <div class="item"><span class="ico"></span><span data-text="chat"></span></div>
+        <div class="item"><span class="ico"></span><span data-text="feeds"></span></div>
+        <div class="item"><span class="ico"></span><span data-text="profile"></span></div>
+        <div class="item"><span class="ico"></span><span data-text="settings"></span></div>
+      </nav>
+
+      <main class="feed">
+        <div class="feed-head" data-text="following"></div>
+
+        <div class="post" data-testid="feedItem-by-alice.example">
+          <div class="avatar" style="background: linear-gradient(135deg, #ffb26b, #e8505b)"></div>
+          <div>
+            <div class="meta"><b>Alice Example</b> <span>@alice.example</span> · <a href="/profile/alice.example/post/3l4aiybdeoo2q">2h</a></div>
+            <div class="text" data-text="post1"></div>
+            <div class="player" aria-label="Embedded video player">
+              <figure><video id="video" poster="/docs/store/fixture/poster.svg" muted playsinline></video></figure>
+              <div class="play"></div>
+              <div class="time">0:14</div>
+            </div>
+            <div class="actions">
+              <div><button type="button" data-testid="replyBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>12</button></div>
+              <div><button type="button" data-testid="repostBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg>48</button></div>
+              <div><button type="button" data-testid="likeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>310</button></div>
+              <div><button type="button" data-testid="postShareBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="post" data-testid="feedItem-by-bob.example">
+          <div class="avatar" style="background: linear-gradient(135deg, #7ad3c0, #2f6fd6)"></div>
+          <div>
+            <div class="meta"><b>Bob Example</b> <span>@bob.example</span> · <a href="/profile/bob.example/post/3l4ajqcxyzz2k">3h</a></div>
+            <div class="text" data-text="post2"></div>
+            <div class="actions">
+              <div><button type="button" data-testid="replyBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>3</button></div>
+              <div><button type="button" data-testid="repostBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg>1</button></div>
+              <div><button type="button" data-testid="likeBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>27</button></div>
+              <div><button type="button" data-testid="postShareBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <aside>
+        <div class="search"></div>
+        <div class="trend"></div>
+        <div class="trend short"></div>
+        <div class="trend"></div>
+        <div class="trend short"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="ctx" id="ctx" hidden>
+    <div class="muted"><span class="sp"></span><span data-ctx="play"></span></div>
+    <div><span class="sp"></span><span data-ctx="loop"></span></div>
+    <div><span class="sp"></span><span data-ctx="controls"></span></div>
+    <hr>
+    <div class="hl"><img src="/src/icons/icon-16.png" alt=""><span data-ctx="download"></span></div>
+    <hr>
+    <div><span class="sp"></span><span data-ctx="inspect"></span></div>
+  </div>
+
+  <script src="/docs/store/fixture/feed.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "extName": { "message": "down.blue" },
-  "extDescription": { "message": "Baixe vídeos e GIFs do Bluesky com o down.blue, a partir da barra de ferramentas, do menu de contexto e de um botão em cada post com vídeo." },
+  "extDescription": { "message": "Baixe vídeos e GIFs do Bluesky com o down.blue pela barra de ferramentas, pelo menu de contexto ou por um botão nos posts com vídeo." },
   "actionTitle": { "message": "down.blue" },
   "menuTitle": { "message": "Baixar com down.blue" },
   "buttonTitle": { "message": "Baixar com down.blue" },

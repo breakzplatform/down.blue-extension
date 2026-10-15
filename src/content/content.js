@@ -51,13 +51,14 @@ function createFooterButton(shareWrapper) {
   
   const iconNS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(iconNS, "svg");
-  svg.setAttribute("width", "20");
-  svg.setAttribute("height", "20");
+  svg.setAttribute("width", "22");
+  svg.setAttribute("height", "22");
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("fill", "none");
   svg.setAttribute("stroke", "currentColor");
   svg.setAttribute("stroke-width", "2");
   svg.setAttribute("stroke-linecap", "square");
+  svg.setAttribute("aria-hidden", "true");
   
   const p1 = document.createElementNS(iconNS, "path");
   p1.setAttribute("d", "M12 15V3");
@@ -72,16 +73,20 @@ function createFooterButton(shareWrapper) {
   
   btn.appendChild(svg);
   btnDiv.appendChild(btn);
-  
-  try {
-    const shareBtn = shareWrapper.querySelector('button') || shareWrapper.firstElementChild;
-    if (shareBtn) {
-      const color = getComputedStyle(shareBtn).color;
-      btn.style.setProperty('--db-footer-color', color);
-    }
-  } catch {}
-  
+  syncFooterColor(btn, shareWrapper);
   return btnDiv;
+}
+
+// Bluesky colours the footer icons on the <svg>, not on the button (whose own
+// colour is the page text), and recolours them when its theme changes. So the
+// colour is read from the share icon and refreshed on every scan.
+function syncFooterColor(btn, shareWrapper) {
+  const icon = shareWrapper.querySelector('svg');
+  if (!icon) return;
+  const color = getComputedStyle(icon).color;
+  if (btn.style.getPropertyValue('--db-footer-color') !== color) {
+    btn.style.setProperty('--db-footer-color', color);
+  }
 }
 
 function scan() {
@@ -103,6 +108,9 @@ function scan() {
             shareWrapper.after(newBtn);
           } else if (!shouldInject && existing) {
             existing.remove();
+          } else if (existing) {
+            const btn = existing.querySelector('.db-footer-btn');
+            if (btn) syncFooterColor(btn, shareWrapper);
           }
         }
       }

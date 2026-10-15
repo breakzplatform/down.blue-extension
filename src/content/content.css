@@ -3,7 +3,8 @@
   position: relative !important;
 }
 
-/* Footer Button */
+/* Footer Button: sized and coloured like Bluesky's own footer buttons
+   (32px round hit area, 22px icon, the share icon's colour). */
 .db-footer-btn {
   display: inline-flex;
   align-items: center;
@@ -11,18 +12,20 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 5px;
   margin: 0;
-  min-width: 34px;
-  min-height: 34px;
-  border-radius: 50%;
+  border-radius: 999px;
   color: var(--db-footer-color, currentColor);
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s;
 }
 
-.db-footer-btn:hover {
-  background-color: rgba(1, 130, 129, 0.1);
-  color: #018281;
+.db-footer-btn svg {
+  pointer-events: none;
+}
+
+.db-footer-btn:hover,
+.db-footer-btn:focus-visible {
+  background-color: color-mix(in srgb, var(--db-footer-color, currentColor) 12%, transparent);
 }
 
 /* Player Button (Neobrutalist) */

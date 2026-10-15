@@ -2,7 +2,8 @@
 set -e
 cd "$(dirname "$0")/../src/icons"
 
-magick -background none icon.svg -resize 16x16 icon-16.png
-magick -background none icon.svg -resize 32x32 icon-32.png
-magick -background none icon.svg -resize 48x48 icon-48.png
-magick -background none icon.svg -resize 128x128 icon-128.png
+# resvg, not ImageMagick: magick's internal SVG renderer silently drops the
+# arrow path and leaves only the boxes.
+for size in 16 32 48 128; do
+  resvg -w "$size" -h "$size" icon.svg "icon-$size.png"
+done

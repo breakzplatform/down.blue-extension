@@ -1,0 +1,9 @@
+/* Computer Modern, the joseli.to design system faces, bundled from the
+   "computer-modern" npm package (SIL OFL, see OFL.txt). The site loads them
+   from static.joseli.to; the extension ships its own copies so its pages never
+   fetch anything remote. Only the weights the extension sets are included. */
+@font-face{font-family:"CMU Serif";font-style:normal;font-weight:700;font-display:swap;src:url("cmu-serif-700-roman.woff2") format("woff2")}
+@font-face{font-family:"CMU Sans Serif";font-style:normal;font-weight:400;font-display:swap;src:url("cmu-sans-serif-500-roman.woff2") format("woff2")}
+@font-face{font-family:"CMU Sans Serif";font-style:normal;font-weight:700;font-display:swap;src:url("cmu-sans-serif-700-roman.woff2") format("woff2")}
+@font-face{font-family:"CMU Typewriter Text";font-style:normal;font-weight:400;font-display:swap;src:url("cmu-typewriter-text-500-roman.woff2") format("woff2")}
+@font-face{font-family:"CMU Typewriter Text";font-style:normal;font-weight:700;font-display:swap;src:url("cmu-typewriter-text-700-roman.woff2") format("woff2")}

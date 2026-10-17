@@ -24,7 +24,8 @@ const TYPES = {
   ".css": "text/css; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
-  ".png": "image/png"
+  ".png": "image/png",
+  ".woff2": "font/woff2"
 };
 
 async function loadPlaywright() {
@@ -129,6 +130,7 @@ async function feedScene(browser, lang, scene, file) {
   // Reveal the player button the way a pointer would.
   await page.hover("#video", { position: { x: 200, y: 120 } });
   await page.addStyleTag({ content: "*, *::before, *::after { transition: none !important; }" });
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: file });
   await context.close();
 }
@@ -141,6 +143,7 @@ async function optionsScene(browser, lang, file) {
   });
   await page.goto(`${ORIGIN}/src/options/options.html`);
   await page.waitForSelector("#custom-list li");
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: file });
   await context.close();
 }
@@ -160,7 +163,7 @@ async function promoScene(browser, lang, size, file) {
   await serveRepository(context);
   const page = await context.newPage();
   await page.goto(`${ORIGIN}/docs/store/fixture/promo.html?size=${size}&lang=${lang}`);
-  await page.waitForFunction(() => [...document.images].every(img => img.complete));
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: file });
   await context.close();
 }

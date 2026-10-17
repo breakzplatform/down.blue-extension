@@ -9,6 +9,7 @@
     the content script relies on (docs/selectors.md); everything else is
     generic. No third-party content is loaded.
   -->
+  <link rel="stylesheet" href="/src/fonts/fonts.css">
   <style>
     :root {
       --page: #F4F1EA;
@@ -36,7 +37,8 @@
     }
     .caption h1 {
       margin: 0;
-      font-family: "DejaVu Serif", Georgia, serif;
+      font-family: "CMU Serif", Georgia, serif;
+      letter-spacing: -0.02em;
       font-size: 36px;
       font-weight: 700;
       letter-spacing: -0.5px;
@@ -46,7 +48,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: "DejaVu Sans Mono", ui-monospace, monospace;
+      font-family: "CMU Typewriter Text", ui-monospace, monospace;
       font-size: 18px;
       font-weight: 700;
       padding: 8px 16px 8px 10px;

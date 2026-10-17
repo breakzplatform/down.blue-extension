@@ -8,7 +8,8 @@
   --on-down: #FFFFFF;
   --status-error: #9E1200;
   
-  --font-body: "CMU Serif", Georgia, "Times New Roman", serif;
+  --font-display: "CMU Serif", Georgia, "Times New Roman", serif;
+  --font-body: "CMU Sans Serif", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "CMU Typewriter Text", ui-monospace, Menlo, monospace;
 }
 
@@ -47,8 +48,18 @@ main {
   margin: 0 auto;
 }
 
-h1, h2 {
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
   font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .brand {

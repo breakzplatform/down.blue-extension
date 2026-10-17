@@ -6,64 +6,83 @@
   <!--
     Chrome Web Store promo images, rendered by scripts/screenshots.mjs:
     ?size=small (440x280 small promo tile) or ?size=marquee (1400x560).
+    Same composition as the site's og.png (down.blue scripts/og.html): CMU
+    Serif 700 wordmark with the teal ink block tilted +1.5deg, and the tagline
+    in CMU Typewriter caps on a halftone dot shadow.
   -->
+  <link rel="stylesheet" href="/src/fonts/fonts.css">
   <style>
     :root {
       --page: #F4F1EA;
+      --card: #FBF9F4;
       --ink: #111;
       --teal: #018281;
+      --on-teal: #FFF;
     }
     * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: var(--page); }
     body {
-      background: var(--page);
-      color: var(--ink);
-      font-family: "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
-      overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      color: var(--ink);
     }
-    .tile { display: flex; align-items: center; }
-    .icon {
-      display: block;
-      border: 3px solid var(--ink);
-      box-shadow: 8px 8px 0 var(--ink);
-    }
-    .name {
+    .wordmark {
       margin: 0;
-      font-family: "DejaVu Sans Mono", ui-monospace, monospace;
-      font-weight: 700;
-      letter-spacing: -1px;
+      font: 700 var(--wordmark-size)/1.1 "CMU Serif", Georgia, serif;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    /* The site's .ink-block: sized from the line box, not from Computer
+       Modern's very tall ascent/descent, and sat on the optical centre. */
+    .ink-block {
+      display: inline-block;
+      line-height: .92;
+      padding: .06em .07em .1em;
+      background: var(--teal);
+      color: var(--on-teal);
+      transform: rotate(1.5deg);
     }
     .tagline {
-      margin: 0;
-      font-family: "DejaVu Serif", Georgia, serif;
-      font-weight: 700;
-      line-height: 1.15;
+      position: relative;
+      isolation: isolate;
+      margin: var(--gap) 0 0;
+      padding: var(--tagline-pad);
+      border: var(--border-width) solid var(--ink);
+      background: var(--card);
+      font: 700 var(--tagline-size)/1.3 "CMU Typewriter Text", ui-monospace, monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
-    .tagline { white-space: nowrap; }
-    .tagline em { font-style: normal; color: var(--teal); }
+    /* The site's .cast shadow: a dot field offset down and right. A rendered
+       image, not a screen, so the round dots stay at 1x. */
+    .tagline::after {
+      content: "";
+      position: absolute;
+      inset: calc(var(--border-width) * -1);
+      z-index: -2;
+      transform: translate(var(--shadow-offset), var(--shadow-offset));
+      background: radial-gradient(circle at 50% 50%, var(--ink) var(--dot-radius), transparent calc(var(--dot-radius) + 0.5px)) 0 0 / var(--dot-pitch) var(--dot-pitch);
+    }
+    .tagline::before { content: ""; position: absolute; inset: 0; z-index: -1; background: inherit; }
 
-    .small .tile { gap: 28px; padding: 0 32px; }
-    .small .icon { width: 120px; height: 120px; box-shadow: 6px 6px 0 var(--ink); }
-    .small .name { font-size: 38px; margin-bottom: 10px; }
-    .small .tagline { font-size: 21px; }
-
-    .marquee .tile { gap: 72px; padding: 0 96px; }
-    .marquee .icon { width: 280px; height: 280px; box-shadow: 12px 12px 0 var(--ink); }
-    .marquee .name { font-size: 88px; margin-bottom: 20px; }
-    .marquee .tagline { font-size: 48px; }
+    .small {
+      --wordmark-size: 70px; --gap: 22px;
+      --tagline-size: 12px; --tagline-pad: 7px 11px; --border-width: 2px;
+      --shadow-offset: 5px; --dot-pitch: 4px; --dot-radius: 1.5px;
+    }
+    .marquee {
+      --wordmark-size: 220px; --gap: 52px;
+      --tagline-size: 30px; --tagline-pad: 15px 24px; --border-width: 3px;
+      --shadow-offset: 10px; --dot-pitch: 6px; --dot-radius: 2px;
+    }
   </style>
 </head>
 <body>
-  <div class="tile">
-    <img class="icon" src="/src/icons/icon-app.svg" alt="">
-    <div>
-      <p class="name">down.blue</p>
-      <p class="tagline" id="tagline"></p>
-    </div>
-  </div>
+  <h1 class="wordmark">down<span class="ink-block">.blue</span></h1>
+  <p class="tagline" id="tagline"></p>
   <script>
     (function () {
       const params = new URLSearchParams(location.search);
@@ -71,17 +90,10 @@
       const size = params.get("size") === "marquee" ? "marquee" : "small";
       document.body.className = size;
       document.documentElement.lang = lang === "pt_BR" ? "pt-BR" : "en";
-      // Line breaks are explicit: the small tile has room for about 12 characters per line.
-      document.getElementById("tagline").innerHTML = {
-        marquee: {
-          en: "Bluesky videos and GIFs,<br><em>one click</em> away",
-          pt_BR: "Vídeos e GIFs do Bluesky,<br>a <em>um clique</em>"
-        },
-        small: {
-          en: "Bluesky videos<br>and GIFs,<br><em>one click</em> away",
-          pt_BR: "Vídeos e GIFs<br>do Bluesky,<br>a <em>um clique</em>"
-        }
-      }[size][lang];
+      document.getElementById("tagline").textContent = {
+        en: "Bluesky videos and GIFs, one click away",
+        pt_BR: "Vídeos e GIFs do Bluesky a um clique"
+      }[lang];
     })();
   </script>
 </body>

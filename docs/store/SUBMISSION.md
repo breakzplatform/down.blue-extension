@@ -139,7 +139,7 @@ Automated (run in CI or locally):
 - [x] `npm run lint` reports 0 errors, 0 warnings, 0 notices
 - [x] Built manifests: Chrome has no `browser_specific_settings`, Firefox has no `service_worker`, permissions are exactly `contextMenus`, `activeTab`, `storage`, `scripting`
 - [x] `_locales/en` and `_locales/pt_BR` have identical keys and no empty messages; descriptions are within 132 characters
-- [x] Screenshots regenerated with `npm run screenshots` (1280x800, 24-bit PNG)
+- [x] Screenshots and promo images regenerated with `npm run screenshots` (1280x800, 440x280, 1400x560, 24-bit PNG)
 
 Needs a real browser (not possible in the build environment):
 
@@ -150,7 +150,7 @@ Needs a real browser (not possible in the build environment):
 - [ ] Firefox: the custom-site permission prompt and removal work as in step 7
 - [ ] pt-BR UI: with the browser language set to Português (Brasil), the menu item reads "Baixar com down.blue" and the options page is translated
 - [ ] Each of deer.social, blacksky.community, witchsky.app and northsky.app still matches `docs/selectors.md`
-- [ ] Toolbar and store icons show the download arrow at 16, 32, 48 and 128 px (see the icon question in the PR)
+- [x] Toolbar and store icons show the download arrow at 16, 32, 48, 96 and 128 px (rendered with resvg)
 
 Before submitting:
 

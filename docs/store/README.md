@@ -29,22 +29,29 @@ summary). `test/store.test.mjs` checks that they stay identical and within
 
 | Asset | File | Notes |
 |---|---|---|
-| Icon 128x128 | `src/icons/icon-128.png` | CWS store icon and AMO icon |
+| Icon 128x128 | `src/icons/icon-128.png` | CWS store icon: 96x96 artwork with 16px transparent padding |
+| Icon 96x96 / 48x48 | `src/icons/icon-96.png`, `src/icons/icon-48.png` | AMO icon and extensions page; all three come from `src/icons/icon-app.svg`, the site's app icon |
+| Toolbar 16/32 | `src/icons/icon-16.png`, `src/icons/icon-32.png` | From `src/icons/icon.svg`, the site's favicon |
 | Screenshot 1 (EN) | `screenshots/en-1-buttons.png` | 1280x800, 24-bit PNG |
 | Screenshot 2 (EN) | `screenshots/en-2-context-menu.png` | 1280x800, 24-bit PNG |
 | Screenshot 3 (EN) | `screenshots/en-3-options.png` | 1280x800, 24-bit PNG |
 | Screenshot 1 (pt-BR) | `screenshots/pt_BR-1-buttons.png` | 1280x800, 24-bit PNG |
 | Screenshot 2 (pt-BR) | `screenshots/pt_BR-2-context-menu.png` | 1280x800, 24-bit PNG |
 | Screenshot 3 (pt-BR) | `screenshots/pt_BR-3-options.png` | 1280x800, 24-bit PNG |
+| Small promo tile (EN) | `screenshots/en-promo-440x280.png` | CWS, 440x280, 24-bit PNG |
+| Small promo tile (pt-BR) | `screenshots/pt_BR-promo-440x280.png` | CWS, 440x280, 24-bit PNG |
+| Marquee (EN) | `screenshots/en-marquee-1400x560.png` | CWS, optional, 1400x560, 24-bit PNG |
+| Marquee (pt-BR) | `screenshots/pt_BR-marquee-1400x560.png` | CWS, optional, 1400x560, 24-bit PNG |
 
-Screenshots are rendered by `npm run screenshots` (`scripts/screenshots.mjs`)
+Screenshots are rendered by `npm run screenshots` (`scripts/screenshots.mjs`;
+set `CHROMIUM_PATH` to use an installed Chrome instead of Playwright's)
 from the static fixture in `fixture/`. The fixture only mimics the layout of a
 feed; it loads no Bluesky page, logo or third-party content. Rerunning the
 script on the same machine reproduces the files byte for byte; fonts come from
 the host system, so another machine may differ slightly.
 
-Not provided yet: the CWS small promo tile (440x280) and marquee (1400x560)
-are optional and left out of 0.1.0.
+Promo images come from `fixture/promo.html` in the same run. Icons are
+rendered by `scripts/build-icons.sh` (needs `resvg` and ImageMagick).
 
 ---
 

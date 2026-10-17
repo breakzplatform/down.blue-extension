@@ -105,8 +105,8 @@ for example
 This is a navigation the user asked for, not a background request. The
 extension itself makes no network requests.
 
-Privacy policy URL: see [privacy.md](privacy.md); it needs a public URL
-before submission (open question in the PR).
+Privacy policy URL: https://down.blue/extension/privacy/ (source:
+[privacy.md](privacy.md), published by the down.blue site repository).
 
 ## Notes for AMO reviewers
 

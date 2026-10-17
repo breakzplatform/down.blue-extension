@@ -49,7 +49,8 @@ history.
 ### Changes and contact
 
 Changes to this policy will be published at this address with a new date.
-Questions: see the contact details on https://down.blue/.
+Questions or problems: use the support form at
+https://q.joseli.to/forms/notx-blue-bugs.
 
 ## Português (Brasil)
 
@@ -98,4 +99,5 @@ navegação.
 ### Mudanças e contato
 
 Mudanças nesta política serão publicadas neste endereço com uma nova data.
-Dúvidas: veja os contatos em https://down.blue/.
+Dúvidas ou problemas: use o formulário de suporte em
+https://q.joseli.to/forms/notx-blue-bugs-pt.

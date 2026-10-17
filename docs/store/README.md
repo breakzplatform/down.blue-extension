@@ -17,7 +17,8 @@ summary). `test/store.test.mjs` checks that they stay identical and within
 | Name | down.blue |
 | Version | 0.1.0 |
 | Homepage | https://down.blue/ |
-| Support | To be decided: support email or public issue tracker (the repository is private) |
+| Support | https://q.joseli.to/forms/notx-blue-bugs (pt-BR: https://q.joseli.to/forms/notx-blue-bugs-pt) |
+| Privacy policy | https://down.blue/extension/privacy/ |
 | License | GPL-3.0-only (see NOTICE) |
 | CWS category | Tools |
 | AMO categories | Download Management; Social & Communication |

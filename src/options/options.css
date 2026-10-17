@@ -51,6 +51,17 @@ h1, h2 {
   font-family: var(--font-mono);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#add-site-form button[type="submit"] {
+  background: var(--ink-down);
+  color: var(--on-down);
+}
+
 button {
   background: var(--surface-page);
   color: var(--text);

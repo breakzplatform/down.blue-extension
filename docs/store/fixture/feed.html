@@ -43,13 +43,19 @@
     }
     .caption h1 em { font-style: normal; color: var(--teal); }
     .badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: "DejaVu Sans Mono", ui-monospace, monospace;
       font-size: 18px;
-      padding: 10px 16px;
+      font-weight: 700;
+      padding: 8px 16px 8px 10px;
       border: 2px solid var(--ink);
       box-shadow: 4px 4px 0 var(--ink);
-      background: #fff;
+      background: var(--teal);
+      color: #fff;
     }
+    .badge img { width: 28px; height: 28px; }
     .window {
       position: absolute;
       left: 64px;
@@ -218,14 +224,14 @@
 <body>
   <header class="caption">
     <h1 id="caption"></h1>
-    <div class="badge">down.blue</div>
+    <div class="badge"><img src="/src/icons/icon.svg" alt="">down.blue</div>
   </header>
 
   <div class="window">
     <div class="chrome-bar">
       <span class="dot"></span><span class="dot"></span><span class="dot"></span>
       <div class="address">social.example/profile/alice.example</div>
-      <div class="ext-icon"><img src="/src/icons/icon-48.png" alt=""></div>
+      <div class="ext-icon"><img src="/src/icons/icon-32.png" alt=""></div>
     </div>
 
     <div class="app">

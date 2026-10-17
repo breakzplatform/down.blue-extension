@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Store promo tile fixture</title>
+  <!--
+    Chrome Web Store promo images, rendered by scripts/screenshots.mjs:
+    ?size=small (440x280 small promo tile) or ?size=marquee (1400x560).
+  -->
+  <style>
+    :root {
+      --page: #F4F1EA;
+      --ink: #111;
+      --teal: #018281;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--page);
+      color: var(--ink);
+      font-family: "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tile { display: flex; align-items: center; }
+    .icon {
+      display: block;
+      border: 3px solid var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .name {
+      margin: 0;
+      font-family: "DejaVu Sans Mono", ui-monospace, monospace;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .tagline {
+      margin: 0;
+      font-family: "DejaVu Serif", Georgia, serif;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .tagline { white-space: nowrap; }
+    .tagline em { font-style: normal; color: var(--teal); }
+
+    .small .tile { gap: 28px; padding: 0 32px; }
+    .small .icon { width: 120px; height: 120px; box-shadow: 6px 6px 0 var(--ink); }
+    .small .name { font-size: 38px; margin-bottom: 10px; }
+    .small .tagline { font-size: 21px; }
+
+    .marquee .tile { gap: 72px; padding: 0 96px; }
+    .marquee .icon { width: 280px; height: 280px; box-shadow: 12px 12px 0 var(--ink); }
+    .marquee .name { font-size: 88px; margin-bottom: 20px; }
+    .marquee .tagline { font-size: 48px; }
+  </style>
+</head>
+<body>
+  <div class="tile">
+    <img class="icon" src="/src/icons/icon-app.svg" alt="">
+    <div>
+      <p class="name">down.blue</p>
+      <p class="tagline" id="tagline"></p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const lang = params.get("lang") === "pt_BR" ? "pt_BR" : "en";
+      const size = params.get("size") === "marquee" ? "marquee" : "small";
+      document.body.className = size;
+      document.documentElement.lang = lang === "pt_BR" ? "pt-BR" : "en";
+      // Line breaks are explicit: the small tile has room for about 12 characters per line.
+      document.getElementById("tagline").innerHTML = {
+        marquee: {
+          en: "Bluesky videos and GIFs,<br><em>one click</em> away",
+          pt_BR: "Vídeos e GIFs do Bluesky,<br>a <em>um clique</em>"
+        },
+        small: {
+          en: "Bluesky videos<br>and GIFs,<br><em>one click</em> away",
+          pt_BR: "Vídeos e GIFs<br>do Bluesky,<br>a <em>um clique</em>"
+        }
+      }[size][lang];
+    })();
+  </script>
+</body>
+</html>

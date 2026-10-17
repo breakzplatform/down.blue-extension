@@ -1,4 +1,5 @@
-// Renders the 1280x800 store screenshots into docs/store/screenshots/.
+// Renders the 1280x800 store screenshots and the Chrome Web Store promo
+// images (440x280 small tile, 1400x560 marquee) into docs/store/screenshots/.
 //
 //   npm run screenshots
 //
@@ -144,6 +145,26 @@ async function optionsScene(browser, lang, file) {
   await context.close();
 }
 
+const PROMO_SIZES = {
+  small: { width: 440, height: 280 },
+  marquee: { width: 1400, height: 560 }
+};
+
+async function promoScene(browser, lang, size, file) {
+  const context = await browser.newContext({
+    viewport: PROMO_SIZES[size],
+    deviceScaleFactor: 1,
+    colorScheme: "light",
+    reducedMotion: "reduce"
+  });
+  await serveRepository(context);
+  const page = await context.newPage();
+  await page.goto(`${ORIGIN}/docs/store/fixture/promo.html?size=${size}&lang=${lang}`);
+  await page.waitForFunction(() => [...document.images].every(img => img.complete));
+  await page.screenshot({ path: file });
+  await context.close();
+}
+
 const { chromium } = await loadPlaywright();
 const executablePath = process.env.CHROMIUM_PATH || undefined;
 const browser = await chromium.launch({ executablePath });
@@ -154,7 +175,9 @@ for (const lang of LANGS) {
   await feedScene(browser, lang, "buttons", `${prefix}-1-buttons.png`);
   await feedScene(browser, lang, "menu", `${prefix}-2-context-menu.png`);
   await optionsScene(browser, lang, `${prefix}-3-options.png`);
+  await promoScene(browser, lang, "small", `${prefix}-promo-440x280.png`);
+  await promoScene(browser, lang, "marquee", `${prefix}-marquee-1400x560.png`);
 }
 
 await browser.close();
-console.log(`Wrote ${LANGS.length * 3} screenshots to ${OUT_DIR}/`);
+console.log(`Wrote ${LANGS.length * 5} images to ${OUT_DIR}/`);

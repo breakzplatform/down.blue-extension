@@ -57,13 +57,15 @@ describe("store listing", () => {
     }
   });
 
-  it("points only at screenshots that exist and are 1280x800 without alpha", () => {
+  it("points only at images that exist, at the store sizes, without alpha", () => {
     const referenced = [...readme.matchAll(/`(screenshots\/[^`]+\.png)`/g)].map(m => m[1]);
     const onDisk = fs.readdirSync(`${STORE}/screenshots`).map(f => `screenshots/${f}`);
     assert.deepEqual([...referenced].sort(), [...onDisk].sort());
     for (const file of referenced) {
       const info = pngInfo(path.join(STORE, file));
-      assert.deepEqual([info.width, info.height], [1280, 800], file);
+      const named = file.match(/-(\d+)x(\d+)\.png$/);
+      const expected = named ? [Number(named[1]), Number(named[2])] : [1280, 800];
+      assert.deepEqual([info.width, info.height], expected, file);
       assert.equal(info.colorType, 2, `${file} must be 24-bit RGB`);
     }
   });

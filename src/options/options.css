@@ -15,12 +15,12 @@
 [data-theme="dark"] {
   --surface-page: #15130F;
   --surface-card: #1F1C17;
-  --text: #F1ECE0;
-  --border: #F1ECE0;
-  --link: #8FB0FF;
+  --text: #D9CFB9;
+  --border: #897F70;
+  --link: #7996DB;
   --ink-down: #0E7471;
   --on-down: #FFFFFF;
-  --status-error: #FF7F6B;
+  --status-error: #D37B69;
 }
 
 [data-theme="terminal"] {

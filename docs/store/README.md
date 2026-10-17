@@ -19,7 +19,7 @@ summary). `test/store.test.mjs` checks that they stay identical and within
 | Homepage | https://down.blue/ |
 | Support | https://q.joseli.to/forms/notx-blue-bugs (pt-BR: https://q.joseli.to/forms/notx-blue-bugs-pt) |
 | Privacy policy | https://down.blue/extension/privacy/ |
-| License | GPL-3.0-only (see NOTICE) |
+| License | GPL-3.0-only with section 7 additional terms (see NOTICE) |
 | CWS category | Tools |
 | AMO categories | Download Management; Social & Communication |
 | AMO tags | bluesky, video, gif, download |

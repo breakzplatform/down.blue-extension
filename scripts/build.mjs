@@ -25,6 +25,8 @@ function build(browser) {
   // copy files
   copyDir("src", path.join(distDir, "src"));
   copyDir("_locales", path.join(distDir, "_locales"));
+  // GPL: every distributed package carries its license and notice
+  for (const file of ["LICENSE", "NOTICE"]) fs.copyFileSync(file, path.join(distDir, file));
   
   // build icons are in src/icons, copy them directly into icons/ inside dist
   copyDir("src/icons", path.join(distDir, "icons"));

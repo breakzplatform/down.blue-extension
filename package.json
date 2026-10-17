@@ -1,6 +1,7 @@
 {
   "name": "down.blue-extension",
   "private": true,
+  "license": "GPL-3.0-only",
   "scripts": {
     "build": "node scripts/build.mjs",
     "lint": "npx web-ext lint -s dist/firefox",

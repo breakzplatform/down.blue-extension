@@ -65,4 +65,5 @@ If you'd like to support the project:
 
 ## License
 
-GPL-3.0-only. See [LICENSE](LICENSE).
+GNU GPL version 3 with additional terms on attribution, renamed
+forks and trademarks: see [LICENSE](LICENSE) and [NOTICE](NOTICE).

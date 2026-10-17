@@ -15,5 +15,5 @@
   "optDomainExists": { "message": "Domain already added." },
   "optPermissionDenied": { "message": "Permission denied." },
   "optFooterAllPosts": { "message": "Show the button on every post, not only on posts with a video" },
-  "optPrivacyNote": { "message": "Permissions requested: Context menus to add right-click options. Active tab to read the post URL when you click the extension. Storage for your settings. Scripting to add the button to the social sites. Nothing is collected." }
+  "optPrivacyNote": { "message": "Permissions requested: Context menus to add right-click options. Active tab to read the post URL when you click the extension. Storage for your settings. Scripting to add the button to the sites you add here. Nothing is collected." }
 }

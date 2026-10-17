@@ -16,10 +16,29 @@ globalThis.DownBlue = {
     if (typeof domain !== "string") throw new Error("Invalid domain");
     let lower = domain.trim().toLowerCase();
     lower = lower.replace(/^https?:\/\//, ""); // strip scheme
-    lower = lower.split("/")[0]; // strip path
+    lower = lower.split(/[/?#]/)[0]; // strip path, query and fragment
+    if (lower.includes("@") || lower.startsWith("[")) {
+      // userinfo and IPv6 literals are never valid sites
+      throw new Error("Invalid domain");
+    }
     lower = lower.split(":")[0]; // strip port
+    lower = lower.replace(/\.+$/, ""); // strip trailing dots (FQDN form)
     // do NOT strip www
-    if (!lower || lower === "localhost" || /^\d+\.\d+\.\d+\.\d+$/.test(lower) || lower.includes(" ")) {
+    if (!lower) throw new Error("Invalid domain");
+
+    // Convert internationalized names to their punycode (ASCII) form, which
+    // is what match patterns and host permissions are compared against.
+    try {
+      lower = new URL(`https://${lower}/`).hostname;
+    } catch {
+      throw new Error("Invalid domain");
+    }
+
+    const labels = lower.split(".");
+    const labelRe = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
+    if (lower.length > 253 || labels.length < 2 || !labels.every(l => labelRe.test(l))
+      || /^\d+$/.test(labels[labels.length - 1])) {
+      // rejects localhost, single-label names, IPv4 addresses and bad characters
       throw new Error("Invalid domain");
     }
     if (this.BUILTIN_DOMAINS.includes(lower)) {

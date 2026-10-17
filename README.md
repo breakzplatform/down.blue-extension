@@ -33,13 +33,15 @@ If you use a different fork of the Bluesky social app, you can add it in the ext
 - `contextMenus`: Used to add "Download with down.blue" to your right-click menu.
 - `activeTab`: Used to read the URL of the current tab when you click the extension's toolbar icon.
 - `storage`: Used to save your settings (like custom domains, theme, and the footer button toggle).
-- `scripting`: Used to inject the download buttons into the social sites you browse.
+- `scripting`: Used to register the content script on the custom sites you add in the Options page.
+- Host access to the five supported sites above, so the download button can be added to posts there.
+- Optional access to other `https://` sites: never granted at install. It is requested for one site at a time, only when you add that site in the Options page, and released when you remove it.
 
 ## Privacy
 
 **Zero tracking, zero analytics.** 
 
-The extension makes no network requests of its own. It only opens new tabs to `https://down.blue/?url=...` handing off the URL for processing. Nothing is collected.
+The extension makes no network requests of its own. It only opens new tabs to `https://down.blue/?url=...` handing off the URL for processing. Nothing is collected. Settings stay in the browser's local extension storage. Full policy: [docs/store/privacy.md](docs/store/privacy.md).
 
 ## Handoff
 
@@ -50,8 +52,9 @@ The extension extracts the user's handle and the post ID and forwards it securel
 - `npm run build` — Builds both Chrome and Firefox targets to `dist/` and zips them.
 - `npm run test` — Runs unit tests using Node's native runner.
 - `npm run lint` — Lints the Firefox build via `web-ext`.
+- `npm run screenshots` — Renders the store screenshots into `docs/store/screenshots/` with Playwright Chromium.
 
-See [Selectors documentation](docs/selectors.md) for details on DOM integration.
+See [Selectors documentation](docs/selectors.md) for details on DOM integration, and [docs/store](docs/store/README.md) for the store listing, submission notes and [privacy policy](docs/store/privacy.md).
 
 ## Support
 

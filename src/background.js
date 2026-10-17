@@ -148,22 +148,22 @@ async function syncContentScripts() {
   }
 }
 
-api.runtime.onInstalled.addListener(() => {
-  setupContextMenus();
-  syncContentScripts();
-});
+// Rebuilds are serialized: onInstalled, onStartup and storage changes can
+// fire close together, and overlapping removeAll/create calls would race and
+// leave duplicate-id errors behind.
+let refreshQueue = Promise.resolve();
+function refresh() {
+  refreshQueue = refreshQueue
+    .then(() => Promise.all([setupContextMenus(), syncContentScripts()]))
+    .catch(() => {});
+  return refreshQueue;
+}
 
-api.runtime.onStartup.addListener(() => {
-  setupContextMenus();
-  syncContentScripts();
-});
+api.runtime.onInstalled.addListener(refresh);
+api.runtime.onStartup.addListener(refresh);
 
 api.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === "local" && (changes.customDomains !== undefined || changes.customDomains)) {
-    setupContextMenus();
-    syncContentScripts();
+  if (areaName === "local" && "customDomains" in changes) {
+    refresh();
   }
 });
-
-// Exposed so the handlers can be driven from a devtools session; the browser UI cannot be scripted.
-globalThis.__downBlueTest = { handleActionClick, handleMenuClick };

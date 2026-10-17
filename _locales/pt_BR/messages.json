@@ -1,6 +1,6 @@
 {
   "extName": { "message": "down.blue" },
-  "extDescription": { "message": "Baixe vídeos e GIFs do Bluesky com o down.blue, a partir da barra de ferramentas, do menu de contexto e de um botão em cada post com vídeo." },
+  "extDescription": { "message": "Baixe vídeos e GIFs do Bluesky com o down.blue pela barra de ferramentas, pelo menu de contexto ou por um botão nos posts com vídeo." },
   "actionTitle": { "message": "down.blue" },
   "menuTitle": { "message": "Baixar com down.blue" },
   "buttonTitle": { "message": "Baixar com down.blue" },
@@ -15,5 +15,5 @@
   "optDomainExists": { "message": "Domínio já adicionado." },
   "optPermissionDenied": { "message": "Permissão negada." },
   "optFooterAllPosts": { "message": "Mostrar o botão em todos os posts, não apenas em posts com vídeo" },
-  "optPrivacyNote": { "message": "Permissões solicitadas: Menus de contexto para adicionar opções no clique com o botão direito. Aba ativa para ler a URL do post quando você clica na extensão. Armazenamento para suas configurações. Scripting para adicionar o botão aos sites sociais. Nenhum dado é coletado." }
+  "optPrivacyNote": { "message": "Permissões solicitadas: Menus de contexto para adicionar opções no clique com o botão direito. Aba ativa para ler a URL do post quando você clica na extensão. Armazenamento para suas configurações. Scripting para adicionar o botão aos sites que você adicionar aqui. Nenhum dado é coletado." }
 }
